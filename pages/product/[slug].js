@@ -1,3 +1,5 @@
+import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import Layout from '../../components/Layout';
@@ -12,7 +14,20 @@ export default function ProductScreen() {
   }
   return (
     <Layout title={product.name}>
-      <h1>{product.name}</h1>
+      <div className="py-2">
+        <Link href="/">back to products</Link>
+      </div>
+      <div className="grid md:grid-cols-4 md:gap-3">
+        <div className="md:col-span-2">
+          <Image
+            src={product.image}
+            alt={product.name}
+            width={640}
+            heigth={640}
+            layout="responsive"
+          ></Image>
+        </div>
+      </div>
     </Layout>
   );
 }

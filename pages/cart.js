@@ -1,9 +1,9 @@
-import XCircleIcon from '@heroicons/react/XCircleItems';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useContext } from 'react';
-import Layout from '../../components/Layout';
-import { Store } from '../../utils/Store';
+import { XCircleIcon } from '@heroicons/react/24/outline';
+import Layout from '../components/Layout';
+import { Store } from '../utils/Store';
 
 export default function CartScreen() {
   const { state, dispatch } = useContext(Store);
@@ -40,19 +40,19 @@ export default function CartScreen() {
                             src={item.image}
                             alt={item.name}
                             width={50}
-                            heigth={50}
+                            height={50}
                           ></Image>
                           &nbsp;
                           {item.name}
                         </a>
-                        <td className="p-5 text-rigth">{item.quantity}</td>
-                        <td className="p-5 text-rigth">${item.price}</td>
-                        <td className="p-5 text-center">
-                          <button>
-                            <XCircleIcon className="h-5 w-5"></XCircleIcon>
-                          </button>
-                        </td>
                       </Link>
+                      <td className="p-5 text-rigth">{item.quantity}</td>
+                      <td className="p-5 text-rigth">${item.price}</td>
+                      <td className="p-5 text-center">
+                        <button>
+                          <XCircleIcon className="h-5 w-5"></XCircleIcon>
+                        </button>
+                      </td>
                     </td>
                   </tr>
                 ))}

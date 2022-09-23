@@ -1,16 +1,20 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useContext } from 'react';
+import React, { useContext, useReducer } from 'react';
 import { XCircleIcon } from '@heroicons/react/24/outline';
 import Layout from '../components/Layout';
 import { Store } from '../utils/Store';
+import { useRouter } from 'next/router';
 
 export default function CartScreen() {
+  const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const {
     cart: { cartItems },
   } = state;
-
+  const removeItemHandler = (item) => {
+    dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
+  };
   return (
     <Layout title="Shopping Cart">
       <h1 className="mb-4 text-xl">Shopping Cart</h1>
@@ -49,7 +53,7 @@ export default function CartScreen() {
                       <td className="p-5 text-rigth">{item.quantity}</td>
                       <td className="p-5 text-rigth">${item.price}</td>
                       <td className="p-5 text-center">
-                        <button>
+                        <button onClick={() => removeItemHandler(item)}>
                           <XCircleIcon className="h-5 w-5"></XCircleIcon>
                         </button>
                       </td>
@@ -58,6 +62,24 @@ export default function CartScreen() {
                 ))}
               </tbody>
             </table>
+          </div>
+          <div className="card p-5">
+            <ul>
+              <li>
+                <div className="pb-3 text-xl">
+                  Subtotal ( {cartItems.reduce((a, c) => a + c.quantity, 0)}) :
+                  ${cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
+                </div>
+              </li>
+              <li>
+                <button
+                  onClick={() => router.push('/shipping')}
+                  className="primary-button w-full"
+                >
+                  Check Out
+                </button>
+              </li>
+            </ul>
           </div>
         </div>
       )}
